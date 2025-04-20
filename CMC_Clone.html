@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Cryptocurrency Prices, Charts And Market Capitalizations | CoinMarketCap
+  </title>
+  <link href="https://ext.same-assets.com/2051089996/3512059263.png" rel="icon" type="image/png"/>
+  <style>
+   /* Root variables and theme */
+:root {
+  --font-main: Inter, "Helvetica Neue", sans-serif;
+  --bg-header-top: #17171A;
+  --bg-header-main: #17171A;
+  --bg-card: #1E1E20;
+  --bg-hover: #2C2D33;
+  --text-main: #FFFFFF;
+  --text-muted: #A1A7BB;
+  --green: #16C784;
+  --red: #EA3943;
+  --blue-accent: #3861FB;
+  --border-color: #2C2D33;
+  --button-bg: #2C2D33;
+  --table-header-bg: #17171A;
+}
+
+/* Base styles */
+body {
+  background: var(--bg-header-main);
+  font-family: var(--font-main);
+  font-size: 13px;
+  margin: 0;
+  color: var(--text-main);
+}
+
+/* Header styles */
+#app-header {
+  background: #17171A !important;
+  border-bottom: 1px solid #2C2D33 !important;
+  height: 48px !important;
+  padding: 0 !important;
+}
+
+.header-container {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 16px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 100% !important;
+}
+
+.header-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 32px !important;
+}
+
+.logo-container {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.nav-links {
+  display: flex !important;
+  list-style: none !important;
+  gap: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 48px !important;
+  align-items: center !important;
+}
+
+.nav-links a {
+  color: #A1A7BB !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.nav-links a.active {
+  color: #FFFFFF !important;
+  position: relative !important;
+}
+
+.nav-links a.active:after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  background: #3861FB !important;
+  border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important;
+}
+
+.header-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.search-container {
+  position: relative !important;
+  margin-right: 16px !important;
+}
+
+.search-input {
+  background: #2C2D33 !important;
+  border: none !important;
+  color: #FFFFFF !important;
+  padding: 8px 12px 8px 36px !important;
+  border-radius: 8px !important;
+  width: 240px !important;
+  height: 32px !important;
+  font-size: 14px !important;
+}
+
+.auth-buttons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.login-btn {
+  color: #FFFFFF !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+.signup-btn {
+  background: #3861FB !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+/* Top stats bar */
+.market-overview-bar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: #1E1E20 !important;
+  padding: 8px 16px !important;
+  margin: 16px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+}
+
+.market-overview-bar > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* Tab row */
+.tabs-row {
+  display: flex !important;
+  gap: 24px !important;
+  padding: 0 24px !important;
+  height: 48px !important;
+  align-items: center !important;
+  border-bottom: 1px solid #2C2D33 !important;
+}
+
+.tab-item {
+  color: #A1A7BB !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  padding: 12px 0 !important;
+}
+
+.tab-item.active {
+  color: #FFFFFF !important;
+  position: relative !important;
+}
+
+.tab-item.active:after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 2px !important;
+  background: #3861FB !important;
+}
+
+/* Global navigation */
+#top-bar {
+  background: #17171A !important;
+  color: #A1A7BB !important;
+  font-size: 12px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 0 20px !important;
+  border-bottom: 1px solid #2C2D33 !important;
+}
+
+#top-bar strong {
+  color: #FFFFFF !important;
+}
+
+/* Category navigation */
+.category-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 0 16px !important;
+  height: 48px !important;
+  background: #17171A !important;
+  border-bottom: 1px solid #2C2D33 !important;
+}
+
+.category-nav a {
+  color: #A1A7BB !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.category-nav a.active {
+  color: #FFFFFF !important;
+}
+
+/* Market overview styles */
+.market-overview-bar {
+  background: var(--bg-card);
+  color: var(--text-main);
+  padding: 10px 16px;
+  margin: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Table styles */
+.crypto-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--secondary-bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.crypto-table th,
+.crypto-table td {
+  padding: 16px;
+  text-align: right;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crypto-table th {
+  background-color: var(--button-bg);
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.crypto-table td {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+/* Column specific styles */
+.rank-column {
+  width: 30px;
+  text-align: left !important;
+}
+
+.name-column {
+  width: 240px;
+  text-align: left !important;
+}
+
+.name-column .coin-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coin-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.coin-name-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.coin-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.coin-symbol {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.price-column {
+  width: 130px;
+}
+
+.change-column {
+  width: 90px;
+}
+
+.market-cap-column {
+  width: 170px;
+}
+
+.volume-column {
+  width: 160px;
+}
+
+.supply-column {
+  width: 160px;
+}
+
+.price-alert-column {
+  width: 140px;
+}
+
+.sparkline-column {
+  width: 160px;
+}
+
+/* Price Alert Band styles */
+.price-alert-band {
+  position: relative;
+  width: 120px;
+  height: 24px;
+  background: #2A2E42;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.price-range-bar {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(22, 199, 132, 0.15) 0%, rgba(234, 57, 67, 0.15) 100%);
+  transition: width 0.3s ease;
+}
+
+.current-price-marker {
+  position: absolute;
+  width: 2px;
+  height: 24px;
+  background: #4C9EFF;
+  transform: translateX(-50%);
+}
+
+.alert-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  justify-content: center;
+}
+
+.alert-btn {
+  padding: 2px 6px;
+  font-size: 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.alert-btn.high {
+  background: rgba(234, 57, 67, 0.15);
+  color: #EA3943;
+}
+
+.alert-btn.low {
+  background: rgba(22, 199, 132, 0.15);
+  color: #16C784;
+}
+
+.buy-button {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: #1C1F2C;
+  color: #4C9EFF;
+  border: 1px solid #4C9EFF;
+  margin-left: 8px;
+}
+
+/* Volume subtext */
+.volume-subtext {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Utility classes */
+.positive-change {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.negative-change {
+  color: var(--red);
+  font-weight: 600;
+}
+
+.positive-change::before {
+  content: "▲ ";
+}
+
+.negative-change::before {
+  content: "▼ ";
+}
+
+/* Metrics grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1.1fr;
+  gap: 16px;
+  margin: 16px 0 24px 0;
+}
+
+.metrics-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Card headers */
+.metrics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.metrics-title {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Trending sections */
+.trending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trending-item-new {
+  display: grid;
+  grid-template-columns: 24px auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.trending-rank {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.trending-coin-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.trending-coin-name {
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.trending-pair {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+/* Market stats */
+.market-stats {
+  text-align: left;
+}
+
+.market-value {
+  color: var(--text-main);
+  font-size: 28px;
+            font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.market-change {
+            display: flex;
+            align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-size: 13px;
+        }
+
+/* Table controls */
+.table-controls {
+            display: flex;
+            align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-controls button {
+  background-color: var(--button-bg);
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.table-controls button:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+}
+
+/* Pagination */
+.pagination {
+            display: flex;
+  justify-content: space-between;
+            align-items: center;
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-button {
+  background: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  min-width: 32px;
+  height: 32px;
+  margin: 0 4px;
+  color: var (--text-main);
+  font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background: var(--bg-hover);
+}
+
+.pagination-button.active {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Search input */
+        .search-input {
+  background: var(--button-bg);
+            border: none;
+  color: var(--text-main);
+            padding: 8px 12px 8px 36px;
+            border-radius: 8px;
+  width: 200px;
+        }
+
+        .search-input:focus {
+            outline: none;
+  background: var(--bg-card);
+}
+
+/* Auth buttons */
+        .login-btn, .signup-btn {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+  color: var (--text-main);
+            background: transparent;
+            border: none;
+        }
+
+        .signup-btn {
+  color: var(--text-main);
+  background: var(--blue-accent);
+            border: none;
+        }
+
+        .signup-btn:hover {
+  background: #2B5CDB;
+}
+
+/* Header buttons */
+        .header-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+  background: var(--button-bg);
+            border: none;
+  color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+/* Fear & Greed widget */
+.fear-greed-widget {
+  background: var(--bg-card);
+  color: var(--text-main);
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Gainers & Losers bar */
+.gainers-losers-bar {
+  background: var(--bg-card);
+  color: var(--text-main);
+  margin: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 13px;
+  display: flex;
+  gap: 32px;
+  scroll-behavior: smooth;
+}
+
+/* Top bar */
+#top-bar {
+  background: var(--bg-header-top);
+  color: var(--text-muted);
+  font-size: 12px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 20px;
+}
+
+#top-bar strong {
+  color: var(--text-main);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+            .nav-links .hide-on-small {
+                display: none;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .search-container {
+                display: none;
+            }
+
+            .nav-links .hide-on-tablet {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .auth-buttons .login-btn {
+                display: none;
+            }
+
+            .header-btn.hide-on-mobile {
+                display: none;
+            }
+
+            .header-right .hide-on-mobile {
+                display: none;
+            }
+        }
+
+        /* Table and Main Content styles */
+        main {
+            padding: 16px 0 32px;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .main-content {
+            padding-top: 16px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            color: rgb(255, 255, 255);
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            color: rgb(128, 138, 157);
+            font-size: 14px;
+        }
+
+        .page-subtitle a {
+            color: rgb(56, 97, 251);
+        }
+
+        .market-highlights {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgb(17, 17, 23);
+            border: 1px solid rgb(34, 37, 49);
+            border-radius: 8px;
+        }
+
+        .highlight-card {
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .highlight-title {
+            color: rgb(128, 138, 157);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-value {
+            color: rgb(255, 255, 255);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .table-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .table-filters {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-filter-btn {
+  background: var(--button-bg);
+  color: var(--text-main);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .table-filter-btn:hover {
+  background: var(--bg-hover);
+        }
+
+        .table-filter-btn .icon {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        .table-view-options {
+            display: flex;
+            align-items: center;
+        }
+
+        .view-option-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background-color: #eff2f5;
+            border: none;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .view-option-btn:hover {
+            background-color: #e4e7eb;
+        }
+
+        .view-option-text {
+            background-color: #eff2f5;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #222531;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .view-option-text:hover {
+            background-color: #e4e7eb;
+        }
+
+        .icon-list:before {
+            content: "\e812";
+        }
+
+        .icon-info:before {
+            content: "\e809";
+        }
+
+        .icon-star-outline:before {
+            content: "\e814";
+        }
+
+        .icon-filter:before {
+            content: "\e815";
+        }
+
+        /* Table styles */
+        .table-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .crypto-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .crypto-table th {
+  background: var(--button-bg);
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 16px;
+            text-align: right;
+        }
+
+        .crypto-table td {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+            padding: 16px;
+        }
+
+        .crypto-table tbody tr:hover td {
+  background: var(--bg-hover);
+        }
+
+        .crypto-table th .sort-icon {
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 10px;
+            opacity: 0.5;
+            vertical-align: middle;
+        }
+
+        .crypto-table th.asc .sort-icon:after {
+            content: "↑";
+            opacity: 1;
+        }
+
+        .crypto-table th.desc .sort-icon:after {
+            content: "↓";
+            opacity: 1;
+        }
+
+        .crypto-table .text-left {
+            text-align: left;
+        }
+
+        .crypto-table .rank-column {
+            width: 30px;
+            color: #808a9d;
+        }
+
+        .crypto-table .name-column {
+            width: 240px;
+        }
+
+        .crypto-table .star-icon {
+            margin-right: 16px;
+            color: #a6b0c3;
+            cursor: pointer;
+            font-size: 16px;
+            vertical-align: middle;
+            transition: color 0.2s;
+        }
+
+        .crypto-table .star-icon:hover, .crypto-table .starred {
+            color: #f8b017;
+        }
+
+        .crypto-table .coin-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .crypto-table .coin-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+
+        .crypto-table .coin-name {
+            font-weight: 700;
+            margin-right: 6px;
+            color: #222531;
+        }
+
+        .crypto-table .coin-symbol {
+  color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .crypto-table .price-column {
+            width: 140px;
+            font-weight: 700;
+            color: #222531;
+        }
+
+        .crypto-table .change-column {
+            width: 90px;
+        }
+
+        .crypto-table .positive-change {
+            color: rgb(22, 199, 132);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .crypto-table .negative-change {
+            color: rgb(234, 57, 67);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .crypto-table .market-cap-column, .crypto-table .volume-column, .crypto-table .supply-column {
+            width: 140px;
+            color: #222531;
+        }
+
+        .crypto-table .sparkline-column {
+            width: 160px;
+        }
+
+        .sparkline {
+            width: 140px;
+            height: 40px;
+        }
+
+        .crypto-table .caret-icon {
+            width: 0;
+            height: 0;
+            display: inline-block;
+            margin-left: 4px;
+        }
+
+        .crypto-table .positive-change .caret-icon {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid rgb(22, 199, 132);
+        }
+
+        .crypto-table .negative-change .caret-icon {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid rgb(234, 57, 67);
+        }
+
+        .crypto-table tbody tr {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .crypto-table tbody tr:hover {
+            background-color: #f8fafd;
+        }
+
+        /* Pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-top: 1px solid #eff2f5;
+        }
+
+        .pagination-info {
+            color: #58667e;
+            font-size: 14px;
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .pagination-button {
+            background-color: #eff2f5;
+            border: none;
+            border-radius: 8px;
+            min-width: 32px;
+            height: 32px;
+            margin: 0 4px;
+            color: #222531;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination-button:hover {
+            background-color: #e4e7eb;
+        }
+
+        .pagination-button.active {
+            background-color: #3861fb;
+            color: #fff;
+        }
+
+        .pagination-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .show-rows-select {
+            margin-left: 8px;
+            background-color: #eff2f5;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: #222531;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .show-rows-select:focus {
+            outline: none;
+            background-color: #e4e7eb;
+        }
+
+        /* Responsive table adjustments */
+        @media (max-width: 1200px) {
+            .crypto-table .supply-column {
+                display: none;
+            }
+
+            .market-highlights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .crypto-table .sparkline-column, .crypto-table .volume-column {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .crypto-table .market-cap-column {
+                display: none;
+            }
+
+            .table-view-options {
+                display: none;
+            }
+
+            .crypto-table th, .crypto-table td {
+                padding: 12px 8px;
+            }
+
+            .pagination {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .pagination-info {
+                margin-bottom: 8px;
+            }
+
+            .market-highlights {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .crypto-table .change-column:nth-child(5) {
+                display: none;
+            }
+
+            .crypto-table .coin-name {
+                max-width: 60px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #fff;
+            border-top: 1px solid #eff2f5;
+            padding: 48px 0 24px;
+            color: #58667e;
+            margin-top: 32px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 32px;
+        }
+
+        .footer-logo-container {
+            grid-column: span 2;
+        }
+
+        .footer-logo {
+            width: 168px;
+            margin-bottom: 24px;
+        }
+
+        .footer-copyright {
+            font-size: 12px;
+            margin-top: 16px;
+            color: #a6b0c3;
+        }
+
+        .footer-section h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #222531;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #58667e;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #3861fb;
+        }
+
+        /* Add blinking effect for price changes */
+        @keyframes price-up {
+            0% { color: #16c784; }
+            100% { color: inherit; }
+        }
+
+        @keyframes price-down {
+            0% { color: #ea3943; }
+            100% { color: inherit; }
+        }
+
+        .price-up {
+            animation: price-up 1s ease-in-out;
+        }
+
+        .price-down {
+            animation: price-down 1s ease-in-out;
+        }
+
+        /* Trending section styles */
+        .trending-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 1px 2px rgba(128, 138, 157, 0.12);
+        }
+
+        .trending-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .trending-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222531;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .trending-items {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .trending-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafd;
+            border-radius: 8px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .trending-item:hover {
+            background: #f0f3f9;
+        }
+
+        /* Market dominance bar */
+        .market-dominance {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 1px 2px rgba(128, 138, 157, 0.12);
+        }
+
+        .dominance-bar {
+            height: 8px;
+            background: #eff2f5;
+            border-radius: 4px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .dominance-segment {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .dominance-btc {
+            background: #f7931a;
+        }
+
+        .dominance-eth {
+            background: #627eea;
+        }
+
+        .dominance-others {
+            background: #808a9d;
+        }
+
+        /* Price alert bell icon */
+        .price-alert {
+            margin-left: 4px;
+            color: #808a9d;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .price-alert:hover {
+            color: #3861fb;
+        }
+
+        /* Update table styles */
+        .crypto-table tbody tr {
+            height: 72px;
+        }
+
+        .crypto-table td {
+            vertical-align: middle;
+        }
+
+        .name-column .coin-info {
+            gap: 8px;
+        }
+
+        .coin-name-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .coin-symbol {
+            font-size: 12px;
+        }
+
+        /* Add blinking animation for price changes */
+        @keyframes blink-green {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(22, 199, 132, 0.1); }
+            100% { background-color: transparent; }
+        }
+
+        @keyframes blink-red {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(234, 57, 67, 0.1); }
+            100% { background-color: transparent; }
+        }
+
+        .price-up {
+            animation: blink-green 1s ease-in-out;
+        }
+
+        .price-down {
+            animation: blink-red 1s ease-in-out;
+        }
+
+        /* Add CSS variables at the start of the existing styles */
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFD;
+            --text-primary: #222531;
+            --text-secondary: #616E85;
+            --border-color: #EFF2F5;
+            --hover-bg: #F0F3F9;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .dark-theme {
+            color-scheme: dark;
+        }
+
+        /* Update existing styles to use CSS variables */
+        .trending-section, .market-dominance, .highlight-card, .table-container, #app-header {
+            background: var(--bg-primary);
+            border-color: var(--border-color);
+        }
+
+        .trending-item {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .trending-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .crypto-table th, .crypto-table td {
+            border-color: var (--border-color);
+            color: var (--text-primary);
+        }
+
+        .crypto-table tbody tr:hover {
+            background: var (--hover-bg);
+        }
+
+        .table-filter-btn, .view-option-btn, .view-option-text {
+            background: var (--bg-secondary);
+            color: var (--text-primary);
+        }
+
+        .table-filter-btn:hover, .view-option-btn:hover, .view-option-text:hover {
+            background: var (--hover-bg);
+        }
+
+        .coin-symbol {
+            color: var (--text-secondary);
+        }
+
+        .pagination-button {
+            background: var (--bg-secondary);
+            color: var (--text-primary);
+        }
+
+        .pagination-button:hover {
+            background: var (--hover-bg);
+        }
+
+        .search-input {
+            background: var (--bg-secondary);
+            color: var (--text-primary);
+        }
+
+        .search-input::placeholder {
+            color: var (--text-secondary);
+        }
+
+        /* Dark theme specific styles */
+        body.dark-theme {
+            background-color: rgb(23, 25, 36);
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme #app-header {
+            background-color: rgb(23, 25, 36);
+            border-bottom: 1px solid rgb(56, 57, 72);
+        }
+
+        body.dark-theme .nav-links a {
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme .search-input {
+            background-color: rgb(44, 47, 54);
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme .search-input::placeholder {
+            color: rgb(138, 139, 145);
+        }
+
+        body.dark-theme .header-btn {
+            background-color: rgb(44, 47, 54);
+        }
+
+        body.dark-theme .header-btn:hover {
+            background-color: rgb(64, 66, 73);
+        }
+
+        body.dark-theme .login-btn {
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme .login-btn:hover {
+            background-color: rgb(44, 47, 54);
+        }
+
+        body.dark-theme .trending-section,
+        body.dark-theme .market-dominance,
+        body.dark-theme .highlight-card,
+        body.dark-theme .table-container {
+            background-color: rgb(34, 37, 49);
+            border: 1px solid rgb(56, 57, 72);
+        }
+
+        body.dark-theme .trending-title,
+        body.dark-theme .highlight-value,
+        body.dark-theme .coin-name {
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme .highlight-title,
+        body.dark-theme .coin-symbol,
+        body.dark-theme .page-subtitle {
+            color: rgb(161, 167, 187);
+        }
+
+        body.dark-theme .trending-item {
+            background-color: rgb(44, 47, 54);
+        }
+
+        body.dark-theme .trending-item:hover {
+            background-color: rgb(64, 66, 73);
+        }
+
+        body.dark-theme .table-filter-btn,
+        body.dark-theme .view-option-btn,
+        body.dark-theme .view-option-text,
+        body.dark-theme .pagination-button {
+            background-color: rgb(44, 47, 54);
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme .table-filter-btn:hover,
+        body.dark-theme .view-option-btn:hover,
+        body.dark-theme .view-option-text:hover,
+        body.dark-theme .pagination-button:hover {
+            background-color: rgb(64, 66, 73);
+        }
+
+        body.dark-theme .crypto-table th {
+            background-color: rgb(34, 37, 49);
+            color: rgb(161, 167, 187);
+            border-bottom: 1px solid rgb(56, 57, 72);
+        }
+
+        body.dark-theme .crypto-table td {
+            border-bottom: 1px solid rgb(56, 57, 72);
+            color: rgb(255, 255, 255);
+        }
+
+        body.dark-theme .crypto-table tbody tr:hover {
+            background-color: rgb(44, 47, 54);
+        }
+
+        body.dark-theme .pagination {
+            border-top: 1px solid rgb(56, 57, 72);
+        }
+
+        body.dark-theme .pagination-info {
+            color: rgb(161, 167, 187);
+        }
+
+        body.dark-theme .show-rows-select {
+            background-color: rgb(44, 47, 54);
+            color: rgb(255, 255, 255);
+            border: 1px solid rgb(56, 57, 72);
+        }
+
+        body.dark-theme .show-rows-select:focus {
+            background-color: rgb(64, 66, 73);
+        }
+
+        /* Price change colors */
+        .positive-change {
+            color: rgb(22, 199, 132);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .negative-change {
+            color: rgb(234, 57, 67);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .caret-icon {
+            width: 0;
+            height: 0;
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
+        }
+
+        .positive-change .caret-icon {
+            border-bottom: 3px solid currentColor;
+        }
+
+        .negative-change .caret-icon {
+            border-top: 3px solid currentColor;
+        }
+
+        /* Dark theme animations */
+        @keyframes dark-blink-green {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(22, 199, 132, 0.15); }
+            100% { background-color: transparent; }
+        }
+
+        @keyframes dark-blink-red {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(234, 57, 67, 0.15); }
+            100% { background-color: transparent; }
+        }
+
+        body.dark-theme .price-up {
+            animation: dark-blink-green 1s ease-in-out;
+        }
+
+        body.dark-theme .price-down {
+            animation: dark-blink-red 1s ease-in-out;
+        }
+
+        /* Accent colors */
+        .signup-btn {
+            background-color: rgb(56, 97, 251);
+        }
+
+        .signup-btn:hover {
+            background-color: rgb(45, 78, 219);
+        }
+
+        .nav-links a.active:after {
+            background-color: rgb(56, 97, 251);
+        }
+
+        .pagination-button.active {
+            background-color: rgb(56, 97, 251) !important;
+            color: rgb(255, 255, 255) !important;
+        }
+
+        /* Add styles for top metrics section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1.1fr;
+            gap: 16px;
+            margin: 16px 0 24px 0;
+        }
+
+        .metrics-card {
+            background: rgb(17, 17, 23);
+            border: 1px solid rgb(34, 37, 49);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        /* Adjust specific card heights */
+        .metrics-card[style*="grid-column: 1 / 2"],
+        .metrics-card[style*="grid-column: 2 / 3"],
+        .metrics-card[style*="grid-column: 5 / 6"] {
+            height: 320px;
+        }
+
+        .metrics-card[style*="grid-column: 3 / 4"],
+        .metrics-card[style*="grid-column: 4 / 5"] {
+            height: 150px;
+        }
+
+        /* Update trending list styles for better scaling */
+        .trending-list {
+            height: calc(100% - 48px);
+            overflow-y: auto;
+        }
+
+        .trending-item-new {
+            padding: 8px 0;
+            border-bottom: 1px solid rgb(34, 37, 49);
+        }
+
+        .trending-item-new:last-child {
+            border-bottom: none;
+        }
+
+        /* Update market stats for better proportions */
+        .market-stats {
+            height: calc(100% - 48px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .market-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            margin-bottom: 4px;
+        }
+
+        .sparkline-container {
+            height: 60px;
+            margin-top: 8px;
+        }
+
+        /* Update news feed scaling */
+        .news-feed {
+            height: calc(100% - 16px);
+            overflow-y: auto;
+        }
+
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgb(34, 37, 49);
+        }
+
+        /* Update fear & greed and altcoin season cards */
+        .fear-greed-container,
+        .altcoin-season-container {
+            margin-top: 16px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Stats bar adjustments */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgb(17, 17, 23);
+            border: 1px solid rgb(34, 37, 49);
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-size: 12px;
+        }
+
+        .stats-left {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .stats-item {
+            color: rgb(128, 138, 157);
+        }
+
+        .stats-value {
+            color: rgb(255, 255, 255);
+            margin-left: 4px;
+        }
+
+        /* Page title adjustments */
+        .page-title {
+            color: rgb(255, 255, 255);
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            color: rgb(128, 138, 157);
+            font-size: 14px;
+        }
+
+        .page-subtitle a {
+            color: rgb(56, 97, 251);
+        }
+
+        /* Metrics grid adjustments */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1.1fr;
+            grid-template-rows: repeat(2, minmax(140px, auto));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metrics-card {
+            background: rgb(17, 17, 23);
+            border: 1px solid rgb(34, 37, 49);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        /* Card headers */
+        .metrics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .metrics-title {
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .metrics-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .metric-action-btn {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: rgb(128, 138, 157);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Trending sections */
+        .trending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .trending-item-new {
+            display: grid;
+            grid-template-columns: 24px auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgb(34, 37, 49);
+        }
+
+        .trending-rank {
+            color: rgb(128, 138, 157);
+            font-size: 13px;
+        }
+
+        .trending-coin-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .trending-coin-name {
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .trending-pair {
+            color: rgb(128, 138, 157);
+            font-size: 14px;
+            margin-left: 4px;
+        }
+
+        /* Market stats cards */
+        .market-stats {
+            text-align: left;
+        }
+
+        .market-value {
+            color: rgb(255, 255, 255);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .market-change {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .sparkline-container {
+            height: 40px;
+            margin-top: 8px;
+        }
+
+        /* Fear & Greed and Altcoin Season */
+        .fear-greed-container,
+        .altcoin-season-container {
+            margin-top: 12px;
+        }
+
+        .fear-greed-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            margin-bottom: 8px;
+        }
+
+        .altcoin-score {
+            font-size: 28px;
+            font-weight: 700;
+            color: rgb(255, 255, 255);
+            margin-bottom: 8px;
+        }
+
+        .score-label {
+            color: rgb(128, 138, 157);
+            font-size: 12px;
+        }
+
+        /* News feed */
+        .news-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .news-item {
+            display: flex;
+            gap: 12px;
+            padding: 4px 0;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .news-content {
+            flex: 1;
+        }
+
+        .news-author {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 2px;
+        }
+
+        .author-name {
+            color: rgb(255, 255, 255);
+            font-weight: 500;
+        }
+
+        .verified-badge {
+            color: rgb(56, 97, 251);
+            margin-left: 4px;
+        }
+
+        .post-time {
+            color: rgb(128, 138, 157);
+            font-size: 13px;
+        }
+
+        .news-text {
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 16px;
+            color: rgb(128, 138, 157);
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        /* Price changes */
+        .positive-change {
+            color: rgb(22, 199, 132);
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .negative-change {
+            color: rgb(234, 57, 67);
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .caret-icon {
+            width: 0;
+            height: 0;
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
+        }
+
+        .positive-change .caret-icon {
+            border-bottom: 3px solid currentColor;
+        }
+
+        .negative-change .caret-icon {
+            border-top: 3px solid currentColor;
+        }
+
+        /* Add new styles for Price Alert Band */
+        .price-alert-band {
+            position: relative;
+            width: 120px;
+            height: 24px;
+            background: #2A2E42;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .price-range-bar {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(22, 199, 132, 0.15) 0%, rgba(234, 57, 67, 0.15) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .current-price-marker {
+            position: absolute;
+            width: 2px;
+            height: 24px;
+            background: #4C9EFF;
+            transform: translateX(-50%);
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .alert-btn {
+            padding: 2px 6px;
+            font-size: 10px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .alert-btn.high {
+            background: rgba(234, 57, 67, 0.15);
+            color: #EA3943;
+        }
+
+        .alert-btn.low {
+            background: rgba(22, 199, 132, 0.15);
+            color: #16C784;
+        }
+
+        .alert-btn:hover {
+            filter: brightness(1.2);
+        }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js">
+  </script>
+  <style>
+   /* Global font scale fix */
+body {
+  font-size: 12px !important;
+  background: #17171A !important;
+  color: #FFFFFF !important;
+}
+
+/* Force dark theme colors */
+#app-header {
+  background: #17171A !important;
+  border-bottom: 1px solid #2C2D33 !important;
+}
+
+.market-overview-bar {
+  background: #1E1E20 !important;
+  border: 1px solid #2C2D33 !important;
+}
+
+.metrics-card {
+  background: #1E1E20 !important;
+  border: 1px solid #2C2D33 !important;
+}
+
+.fear-greed-widget {
+  background: #1E1E20 !important;
+  border: 1px solid #2C2D33 !important;
+}
+
+.gainers-losers-bar {
+  background: #1E1E20 !important;
+  border: 1px solid #2C2D33 !important;
+}
+
+.table-container {
+  background: #1E1E20 !important;
+  border: 1px solid #2C2D33 !important;
+}
+
+.crypto-table th {
+  background: #17171A !important;
+  color: #A1A7BB !important;
+  border-bottom: 1px solid #2C2D33 !important;
+}
+
+.crypto-table td {
+  background: #1E1E20 !important;
+  border-bottom: 1px solid #2C2D33 !important;
+  color: #FFFFFF !important;
+}
+
+.crypto-table tr:hover td {
+  background: #2C2D33 !important;
+}
+
+.table-filter-btn,
+.view-option-btn,
+.view-option-text,
+.toolbar-controls button,
+.table-controls button {
+  background: #2C2D33 !important;
+  color: #A1A7BB !important;
+  border: none !important;
+}
+
+.table-controls button.active {
+  color: #FFFFFF !important;
+}
+
+.coin-symbol,
+.trending-pair,
+.metrics-title,
+.page-subtitle {
+  color: #A1A7BB !important;
+}
+
+.search-input {
+  background: #2C2D33 !important;
+  color: #FFFFFF !important;
+}
+
+.positive-change {
+  color: #16C784 !important;
+}
+
+.negative-change {
+  color: #EA3943 !important;
+}
+
+#top-bar {
+  background: #17171A !important;
+  color: #A1A7BB !important;
+}
+
+#top-bar strong {
+  color: #FFFFFF !important;
+}
+
+.nav-links a {
+  color: #A1A7BB !important;
+}
+
+.nav-links a.active {
+  color: #FFFFFF !important;
+}
+
+.login-btn {
+  color: #FFFFFF !important;
+}
+
+.signup-btn {
+  background: #3861FB !important;
+  color: #FFFFFF !important;
+}
+
+.pagination {
+  border-top: 1px solid #2C2D33 !important;
+}
+
+.pagination-button {
+  background: #2C2D33 !important;
+  color: #FFFFFF !important;
+}
+
+.pagination-button.active {
+  background: #3861FB !important;
+}
+
+.pagination-info {
+  color: #A1A7BB !important;
+}
+
+.show-rows-select {
+  background: #2C2D33 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #2C2D33 !important;
+}
+
+/* Remove extra padding/margin on sections */
+main, .main-content, .content-container {
+  padding-top: 10px !important;
+  margin-top: 0 !important;
+}
+
+/* Remove unwanted elements */
+.trending-section,
+.market-dominance,
+footer {
+  display: none !important;
+}
+  </style>
+ </head>
+ <body class="dark-theme">
+  <!-- Header Section -->
+  <!-- Pixel-perfect Top Bar -->
+  <header id="app-header">
+   <div class="header-container">
+    <div class="header-left">
+     <div class="logo-container">
+      <strong style="font-size: 20px; color: white;">CoinMarketCap</strong>
+     </div>
+     <nav>
+      <ul class="nav-links">
+       <li>
+        <a class="active" href="#">
+         Cryptocurrencies
+        </a>
+       </li>
+       <li>
+        <a href="#">
+         Exchanges
+        </a>
+       </li>
+       <li class="hide-on-small">
+        <a href="#">
+         Community
+        </a>
+       </li>
+       <li class="hide-on-small">
+        <a href="#">
+         Products
+        </a>
+       </li>
+       <li class="hide-on-tablet">
+        <a href="#">
+         Learn
+        </a>
+       </li>
+      </ul>
+     </nav>
+    </div>
+    <div class="header-right">
+     <div class="search-container">
+      <span class="search-icon icon-search">
+      </span>
+      <input class="search-input" placeholder="Search" type="text"/>
+     </div>
+     <div class="dropdown-menu hide-on-mobile">
+      <div class="dropdown-toggle">
+       <span class="icon-diamond diamond-icon">
+       </span>
+       <span>
+        Diamond
+       </span>
+      </div>
+     </div>
+     <button class="header-btn hide-on-mobile">
+      <span class="icon-globe globe-icon">
+      </span>
+     </button>
+     <button class="header-btn hide-on-mobile">
+      <span class="icon-notifications notification-icon">
+      </span>
+     </button>
+     <div class="settings-dropdown hide-on-mobile">
+      <button class="header-btn">
+       <span class="icon-settings settings-icon">
+       </span>
+      </button>
+     </div>
+     <div class="auth-buttons">
+      <button class="login-btn">
+       Log In
+      </button>
+      <button class="signup-btn">
+       Sign Up
+      </button>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="market-overview-bar" style="
+    background: #202338;
+    color: white;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-family: Inter, sans-serif;
+    border-radius: 10px;
+    margin: 10px 16px 0 16px;
+">
+   <div>
+    <strong>
+     🌍 Global Market Cap:
+    </strong>
+    $1.86T
+   </div>
+   <div>
+    <strong>
+     📈 24h Volume:
+    </strong>
+    $89.2B
+   </div>
+   <div>
+    <strong>
+     🪙 BTC Dominance:
+    </strong>
+    48.12%
+   </div>
+   <div>
+    <strong>
+     📅 Updated:
+    </strong>
+    2025-04-20 08:03 UTC
+   </div>
+  </div>
+  <div class="market-highlights">
+   <div class="highlight-card">
+    <div class="highlight-title">
+     Cryptocurrencies
+    </div>
+    <div class="highlight-value">
+     24,922
+    </div>
+   </div>
+   <div class="highlight-card">
+    <div class="highlight-title">
+     Exchanges
+    </div>
+    <div class="highlight-value">
+     613
+    </div>
+   </div>
+   <div class="highlight-card">
+    <div class="highlight-title">
+     Market Cap
+    </div>
+    <div class="highlight-value">
+     $2.57T
+    </div>
+   </div>
+   <div class="highlight-card">
+    <div class="highlight-title">
+     24h Vol
+    </div>
+    <div class="highlight-value">
+     $51.51B
+    </div>
+   </div>
+  </div>
+  <!-- Tweets Row -->
+  <div class="tweets-row" style="display: flex; gap: 16px; margin: 0 16px 24px 16px;">
+    <div class="tweet-card" style="flex:1; background:#1E1E20; border:1px solid #2C2D33; border-radius:12px; padding:16px; color:#fff; display:flex; flex-direction:column; gap:10px; min-width:0;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <img src="https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg" alt="Trump" style="width:36px;height:36px;border-radius:50%;object-fit:cover;"/>
+        <div>
+          <div style="font-weight:600;">Donald J. Trump <span style='color:#8A8F9B;font-weight:400;'>@realDonaldTrump</span></div>
+          <div style="font-size:12px;color:#8A8F9B;">Apr 20, 2025</div>
+        </div>
+      </div>
+      <div style="font-size:15px;line-height:1.5;">Crypto is here to stay. America must lead the way in innovation and freedom! #MAGA #crypto</div>
+      <div style="font-size:12px;color:#8A8F9B;">12.4K Retweets &nbsp; 48.2K Likes</div>
+    </div>
+    <div class="tweet-card" style="flex:1; background:#1E1E20; border:1px solid #2C2D33; border-radius:12px; padding:16px; color:#fff; display:flex; flex-direction:column; gap:10px; min-width:0;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <img src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg" alt="Elon Musk" style="width:36px;height:36px;border-radius:50%;object-fit:cover;"/>
+        <div>
+          <div style="font-weight:600;">Elon Musk <span style='color:#8A8F9B;font-weight:400;'>@elonmusk</span></div>
+          <div style="font-size:12px;color:#8A8F9B;">Apr 20, 2025</div>
+        </div>
+      </div>
+      <div style="font-size:15px;line-height:1.5;">Dogecoin to the moon 🚀. Decentralization is the future. #crypto</div>
+      <div style="font-size:12px;color:#8A8F9B;">42.0K Retweets &nbsp; 120.1K Likes</div>
+    </div>
+    <div class="tweet-card" style="flex:1; background:#1E1E20; border:1px solid #2C2D33; border-radius:12px; padding:16px; color:#fff; display:flex; flex-direction:column; gap:10px; min-width:0;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <img src="https://pbs.twimg.com/profile_images/378800000404040000/0eaece7c7e3e7e3e7e3e7e3e7e3e7e3e_400x400.jpeg" alt="Mark Zuckerberg" style="width:36px;height:36px;border-radius:50%;object-fit:cover;"/>
+        <div>
+          <div style="font-weight:600;">Mark Zuckerberg <span style='color:#8A8F9B;font-weight:400;'>@finkd</span></div>
+          <div style="font-size:12px;color:#8A8F9B;">Apr 20, 2025</div>
+        </div>
+      </div>
+      <div style="font-size:15px;line-height:1.5;">Excited about the possibilities of blockchain and crypto for connecting the world. #Meta #crypto</div>
+      <div style="font-size:12px;color:#8A8F9B;">8.7K Retweets &nbsp; 33.5K Likes</div>
+    </div>
+  </div>
+  <div id="top-bar" style="background:#101323;color:#8A8F9B;font-size:12px;height:28px;line-height:28px;display:flex;gap:18px;align-items:center;padding:0 20px;font-family:Inter,sans-serif;">
+   <span>
+    Cryptos:
+    <strong style="color:#fff;">
+     13.9M
+    </strong>
+   </span>
+   <span>
+    Exchanges:
+    <strong style="color:#fff;">
+     812
+    </strong>
+   </span>
+   <span>
+    Market Cap:
+    <strong style="color:#fff;">
+     $2.69T
+    </strong>
+    <span style="color:#16C784;">
+     ▲ 0.37%
+    </span>
+   </span>
+   <span>
+    24h Vol:
+    <strong style="color:#fff;">
+     $43.9B
+    </strong>
+    <span style="color:#EA3943;">
+     ▼ 3.28%
+    </span>
+   </span>
+   <span>
+    Dominance:
+    <strong style="color:#fff;">
+     BTC: 62.7% ETH: 7.2%
+    </strong>
+   </span>
+   <span>
+    ETH Gas:
+    <strong style="color:#fff;">
+     0.32 Gwei
+    </strong>
+   </span>
+   <span>
+    Fear &amp; Greed:
+    <strong style="color:#fff;">
+     33/100
+    </strong>
+   </span>
+  </div>
+  <!-- Main Content -->
+  <main>
+   <div class="content-container">
+    <!-- Stats Bar -->
+    <div class="main-content">
+     <h1 class="page-title" style="font-size: 28px; font-weight: 700; margin-bottom: 6px; color: white;">
+      Today's Cryptocurrency Prices by Market Cap
+     </h1>
+     <p class="page-subtitle">
+      The global crypto market cap is $2.66T, a
+      <span class="positive-change">
+       0.72%
+      </span>
+      increase over the last day.
+      <a href="#" style="color: rgb(56, 97, 251);">
+       Read More
+      </a>
+     </p>
+     <div class="metrics-grid">
+      <!-- Trending Coins -->
+      <div class="metrics-card" style="grid-column: 1 / 2; grid-row: 1 / 3;">
+       <div class="metrics-header" style="flex-direction: column; align-items: flex-start; gap: 0; margin-bottom: 0;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 0; margin-left: 0;">
+         <span class="metrics-title" style="color: #fff; font-size: 15px; font-weight: 500;">Trending Coins</span>
+         <span style="font-size: 18px;">🔥</span>
+         <span style="font-size: 18px;">⏰</span>
+         <span style="font-size: 18px;">👁️</span>
+        </div>
+       </div>
+       <div class="trending-list">
+        <div class="trending-item-new">
+         <span class="trending-rank">1</span>
+         <img alt="STRAX" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">STRAX</span></div>
+         <div class="trending-coin-change positive-change"><span>64.49%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">2</span>
+         <img alt="BTC" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/2.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">Bitcoin</span></div>
+         <div class="trending-coin-change positive-change"><span>5.12%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">3</span>
+         <img alt="ETH" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">Ethereum</span></div>
+         <div class="trending-coin-change negative-change"><span>2.31%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">4</span>
+         <img alt="SOL" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">Solana</span></div>
+         <div class="trending-coin-change positive-change"><span>8.31%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">5</span>
+         <img alt="DOGE" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/74.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">Dogecoin</span></div>
+         <div class="trending-coin-change positive-change"><span>3.38%</span><span class="caret-icon"></span></div>
+        </div>
+       </div>
+      </div>
+      <!-- Trending on DexScan -->
+      <div class="metrics-card" style="grid-column: 2 / 3; grid-row: 1 / 3;">
+       <div class="metrics-header">
+        <h2 class="metrics-title">Trending on DexScan</h2>
+        <div class="metrics-actions">
+         <button class="metric-action-btn">📊</button>
+         <button class="metric-action-btn">🔄</button>
+         <button class="metric-action-btn">❓</button>
+        </div>
+       </div>
+       <div class="trending-list">
+        <div class="trending-item-new">
+         <span class="trending-rank">1</span>
+         <img alt="TRUMP" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/24478.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">TRUMP</span><span class="trending-pair">/USDC</span></div>
+         <div class="trending-coin-change negative-change"><span>3.74%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">2</span>
+         <img alt="PEPE" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/24478.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">PEPE</span><span class="trending-pair">/WETH</span></div>
+         <div class="trending-coin-change positive-change"><span>32.4%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">3</span>
+         <img alt="FLOKI" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/9025.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">FLOKI</span><span class="trending-pair">/USDT</span></div>
+         <div class="trending-coin-change positive-change"><span>27.9%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">4</span>
+         <img alt="RNDR" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/5690.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">RNDR</span><span class="trending-pair">/USDT</span></div>
+         <div class="trending-coin-change positive-change"><span>19.1%</span><span class="caret-icon"></span></div>
+        </div>
+        <div class="trending-item-new">
+         <span class="trending-rank">5</span>
+         <img alt="ARB" class="trending-coin-logo" src="https://s2.coinmarketcap.com/static/img/coins/64x64/11841.png"/>
+         <div class="trending-coin-info"><span class="trending-coin-name">ARB</span><span class="trending-pair">/USDT</span></div>
+         <div class="trending-coin-change negative-change"><span>14.3%</span><span class="caret-icon"></span></div>
+        </div>
+       </div>
+      </div>
+      <!-- Market Cap -->
+      <div class="metrics-card" style="grid-column: 3 / 4; grid-row: 1 / 2; display:flex; flex-direction:column; justify-content:center;">
+       <div class="metrics-header">
+        <h2 class="metrics-title">
+         Market Cap
+        </h2>
+       </div>
+       <div class="market-stats" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:100%;">
+        <div class="market-value">
+         $2.66T
+        </div>
+        <div class="market-change positive-change">
+         <span>
+          0.72%
+         </span>
+         <span class="caret-icon">
+         </span>
+        </div>
+        <div class="sparkline-container" style="height:40px;display:flex;align-items:center;">
+         <svg class="sparkline-mini" viewBox="0 0 100 40" style="height:32px;width:100px;display:block;">
+          <path d="M0,20 L10,18 L20,22 L30,19 L40,21 L50,20 L60,22 L70,21 L80,23 L90,22 L100,21" fill="none" stroke="rgb(22, 199, 132)" stroke-width="2">
+          </path>
+         </svg>
+        </div>
+       </div>
+      </div>
+      <!-- CMC100 -->
+      <div class="metrics-card" style="grid-column: 4 / 5; grid-row: 1 / 2; display:flex; flex-direction:column; justify-content:center;">
+       <div class="metrics-header">
+        <h2 class="metrics-title">
+         CMC100
+        </h2>
+       </div>
+       <div class="market-stats" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:100%;">
+        <div class="market-value">
+         $161.64
+        </div>
+        <div class="market-change positive-change">
+         <span>
+          0.81%
+         </span>
+         <span class="caret-icon">
+         </span>
+        </div>
+        <div class="sparkline-container" style="height:40px;display:flex;align-items:center;">
+         <svg class="sparkline-mini" viewBox="0 0 100 40" style="height:32px;width:100px;display:block;">
+          <path d="M0,20 L10,18 L20,22 L30,19 L40,21 L50,20 L60,22 L70,21 L80,23 L90,22 L100,21" fill="none" stroke="rgb(22, 199, 132)" stroke-width="2">
+          </path>
+         </svg>
+        </div>
+       </div>
+      </div>
+      <!-- Fear & Greed -->
+      <div class="metrics-card" style="grid-column: 3 / 4; grid-row: 2 / 3; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+       <div class="metrics-header" style="width:100%;">
+        <h2 class="metrics-title">
+         Fear &amp; Greed
+        </h2>
+       </div>
+       <div class="market-stats" style="align-items:center; width:100%;">
+        <div class="fear-greed-gauge" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;width:100%;height:110px;">
+         <svg width="110" height="70" viewBox="0 0 110 70" style="display:block;">
+          <defs>
+           <linearGradient id="fg-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#EA3943"/>
+            <stop offset="50%" stop-color="#FFD166"/>
+            <stop offset="100%" stop-color="#16C784"/>
+           </linearGradient>
+          </defs>
+          <path d="M15,60 A40,40 0 0,1 95,60" fill="none" stroke="url(#fg-gradient)" stroke-width="12" stroke-linecap="round"/>
+          <!-- Needle: 33/100 = 33deg from left (max 180deg) -->
+          <g>
+           <line x1="55" y1="60" x2="35.5" y2="40.5" stroke="#EA3943" stroke-width="4" stroke-linecap="round"/>
+           <circle cx="55" cy="60" r="6" fill="#232336" stroke="#FFD166" stroke-width="2"/>
+          </g>
+         </svg>
+         <div style="position:absolute; top:32px; left:0; right:0; text-align:center; font-size:28px; font-weight:700; color:#fff; letter-spacing:-1px;">33</div>
+         <div style="position:absolute; top:65px; left:0; right:0; text-align:center; font-size:15px; font-weight:600; color:#EA3943;">Fear</div>
+         <div style="position:absolute; top:88px; left:0; right:0; text-align:center; font-size:12px; color:#8A8F9B;">(0 = Extreme Fear, 100 = Extreme Greed)</div>
+        </div>
+       </div>
+      </div>
+      <!-- Altcoin Season -->
+      <div class="metrics-card" style="grid-column: 4 / 5; grid-row: 2 / 3; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+       <div class="metrics-header" style="width:100%;">
+        <h2 class="metrics-title">
+         Altcoin Season
+        </h2>
+       </div>
+       <div class="market-stats" style="align-items:center; width:100%;">
+        <div style="display:flex;align-items:end;justify-content:center;gap:8px;">
+         <span style="font-size:28px;font-weight:700;color:#fff;line-height:1;">21</span>
+         <span style="color:#808A9D;font-size:18px;line-height:1;">/100</span>
+        </div>
+        <div style="width:100%;margin:18px 0 8px 0;display:flex;align-items:center;justify-content:center;">
+         <div style="position:relative;width:90%;height:14px;background:transparent;">
+          <div style="position:absolute;left:0;top:0;height:14px;width:100%;background:linear-gradient(90deg,#F7931A 0%,#3861FB 100%);border-radius:7px;"></div>
+          <div style="position:absolute;top:50%;left:21%;transform:translate(-50%,-50%);width:18px;height:18px;background:#fff;border:3px solid #3861FB;border-radius:50%;z-index:2;"></div>
+         </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:15px;color:#8A8F9B;margin-top:2px;width:90%;font-weight:600;">
+         <span style="color:#F7931A;">Bitcoin</span>
+         <span style="color:#3861FB;">Altcoin</span>
+        </div>
+       </div>
+      </div>
+      <!-- News Feed -->
+      <div class="metrics-card" style="grid-column: 5 / 6; grid-row: 1 / 3;">
+       <div class="news-feed">
+        <div class="news-item">
+         <img alt="Vlad Hryniv" class="author-avatar" src="https://s2.coinmarketcap.com/static/img/portraits/62d20778c17e874449501168.jpg"/>
+         <div class="news-content">
+          <div class="news-author">
+           <span class="author-name">
+            Vlad Hryniv
+           </span>
+           <span class="verified-badge">
+            ✓
+           </span>
+           <span class="post-time">
+            · 22h
+           </span>
+          </div>
+          <p class="news-text">
+           After a brutal Q1, Solana just bounced back hard — up 20%+ this week and reclaiming the $130...
+          </p>
+          <div class="post-stats">
+           <span>
+            8
+           </span>
+           <span>
+            1
+           </span>
+           <span>
+            106
+           </span>
+          </div>
+         </div>
+        </div>
+        <div class="news-item">
+         <img alt="Coincu" class="author-avatar" src="https://s2.coinmarketcap.com/static/img/portraits/6271c06ec17e874449500d8d.jpg"/>
+         <div class="news-content">
+          <div class="news-author">
+           <span class="author-name">
+            Coincu
+           </span>
+           <span class="verified-badge">
+            ✓
+           </span>
+           <span class="post-time">
+            · 10 hours
+           </span>
+          </div>
+          <p class="news-text">
+           SEC Hosts Crypto Roundtable on Custody Regulations
+          </p>
+          <div class="post-stats">
+           <span>
+            0
+           </span>
+           <span>
+            0
+           </span>
+           <span>
+            12
+           </span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Rest of the content -->
+     <div class="table-container">
+      <div class="toolbar-controls" style="display: flex; gap: 12px; margin: 16px 0 8px 24px;">
+       <button style="background-color: #2A2E42; border: none; color: white; padding: 6px 14px; border-radius: 8px; font-weight: 600;">
+        Watchlist
+       </button>
+       <button style="background-color: #2A2E42; border: none; color: white; padding: 6px 14px; border-radius: 8px; font-weight: 600;">
+        Filters
+       </button>
+       <button style="background-color: #2A2E42; border: none; color: white; padding: 6px 14px; border-radius: 8px; font-weight: 600;">
+        Cryptocurrencies
+       </button>
+       <button style="background-color: #2A2E42; border: none; color: white; padding: 6px 14px; border-radius: 8px; font-weight: 600;">
+        Categories
+       </button>
+      </div>
+      <div class="table-controls" style="display: flex; align-items: center; gap: 12px; padding: 12px 24px;">
+       <div style="display: flex; gap: 8px;">
+        <button style="background-color: #1F2233; border: none; color: white; font-size: 12px; padding: 6px 14px; border-radius: 6px; font-weight: 500;">
+         Coins
+        </button>
+        <button style="background-color: #2A2E42; border: none; color: #8A8F9B; font-size: 12px; padding: 6px 14px; border-radius: 6px;">
+         DexScan
+        </button>
+       </div>
+       <div style="display: flex; gap: 8px; margin-left: 16px;">
+        <button style="background-color: #2A2E42; border: none; color: #4C9EFF; font-size: 12px; padding: 6px 10px; border-radius: 6px;">
+         Top
+        </button>
+        <button style="background-color: #1F2233; border: none; color: #8A8F9B; font-size: 12px; padding: 6px 10px; border-radius: 6px;">
+         Trending
+        </button>
+        <button style="background-color: #1F2233; border: none; color: #8A8F9B; font-size: 12px; padding: 6px 10px; border-radius: 6px;">
+         New
+        </button>
+        <button style="background-color: #1F2233; border: none; color: #8A8F9B; font-size: 12px; padding: 6px 10px; border-radius: 6px;">
+         Gainers
+        </button>
+        <button style="background-color: #1F2233; border: none; color: #8A8F9B; font-size: 12px; padding: 6px 10px; border-radius: 6px;">
+         Most Visited
+        </button>
+       </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 12px; padding: 12px 24px;">
+       <button style="background-color: #2A2E42; border: none; color: white; font-size: 12px; padding: 6px 14px; border-radius: 8px;">
+        Filters
+       </button>
+       <button style="background-color: #2A2E42; border: none; color: white; font-size: 12px; padding: 6px 14px; border-radius: 8px;">
+        Columns
+       </button>
+       <button style="background-color: #2A2E42; border: none; color: white; font-size: 12px; padding: 6px 14px; border-radius: 8px;">
+        Show 100
+       </button>
+      </div>
+      <table class="crypto-table" id="crypto-table">
+       <thead>
+        <tr>
+         <th class="rank-column">#</th>
+         <th class="name-column">Name</th>
+         <th class="price-column">Price</th>
+         <th class="change-column">24h %</th>
+         <th class="change-column">7d %</th>
+         <th class="market-cap-column">Market Cap</th>
+         <th class="volume-column">Volume(24h)</th>
+         <th class="supply-column">Circulating Supply</th>
+         <th class="price-alert-column">Price Alert Band</th>
+         <th class="sparkline-column">Last 7 Days</th>
+        </tr>
+       </thead>
+       <tbody id="crypto-table-body">
+       </tbody>
+      </table>
+      <div class="pagination">
+       <div class="pagination-info">
+        Showing
+        <span id="showing-start">
+         1
+        </span>
+        -
+        <span id="showing-end">
+         100
+        </span>
+        out of
+        <span id="total-count">
+         24,922
+        </span>
+       </div>
+       <div class="pagination-controls">
+        <button class="pagination-button" disabled="" id="prev-page-btn">
+         Previous
+        </button>
+        <button class="pagination-button active">
+         1
+        </button>
+        <button class="pagination-button">
+         2
+        </button>
+        <button class="pagination-button">
+         3
+        </button>
+        <button class="pagination-button">
+         4
+        </button>
+        <button class="pagination-button">
+         5
+        </button>
+        <button class="pagination-button" id="next-page-btn">
+         Next
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <script>
+    const globalData = {
+        crypto: [],
+        trending: []
+    };
+
+    const utils = {
+        formatPercentage(value) {
+            return `${parseFloat(value).toFixed(2)}%`;
+        }
+    };
+
+    // Single UI rendering function
+    const ui = {
+        renderCryptoTable() {
+            const tbody = document.getElementById('crypto-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            // Hardcoded data from user
+            const data = [
+                {rank: 1, name: 'Bitcoin', symbol: 'BTC', price: '$85,175.40', change24h: 0.07, change7d: 0.76, marketCap: '$1,690,851,882,616', volume: '$14,098,652,659\n165.54K BTC', supply: '19.85M BTC'},
+                {rank: 2, name: 'Ethereum', symbol: 'ETH', price: '$1,614.93', change24h: 0.68, change7d: 0.71, marketCap: '$194,895,616,774', volume: '$6,920,733,812\n4.28M ETH', supply: '120.7M ETH'},
+                {rank: 3, name: 'Tether', symbol: 'USDT', price: '$0.9998', change24h: 0.01, change7d: 0.02, marketCap: '$144,624,395,951', volume: '$32,994,878,606\n32.99B USDT', supply: '144.64B USDT'},
+                {rank: 4, name: 'XRP', symbol: 'XRP', price: '$2.08', change24h: 0.07, change7d: 2.16, marketCap: '$121,764,439,977', volume: '$1,323,394,496\n634.65M XRP', supply: '58.39B XRP'},
+                {rank: 5, name: 'BNB', symbol: 'BNB', price: '$594.02', change24h: 0.15, change7d: 0.30, marketCap: '$83,693,343,089', volume: '$1,239,566,855\n2.08M BNB', supply: '140.89M BNB'},
+                {rank: 6, name: 'Solana', symbol: 'SOL', price: '$140.85', change24h: 1.91, change7d: 8.31, marketCap: '$72,789,860,276', volume: '$2,213,546,874\n15.71M SOL', supply: '516.75M SOL'},
+                {rank: 7, name: 'USDC', symbol: 'USDC', price: '$0.9999', change24h: 0.01, change7d: 0.00, marketCap: '$60,903,185,006', volume: '$3,949,484,291\n3.94B USDC', supply: '60.9B USDC'},
+                {rank: 8, name: 'Dogecoin', symbol: 'DOGE', price: '$0.1588', change24h: 0.40, change7d: 3.38, marketCap: '$23,652,831,501', volume: '$444,288,800\n2.79B DOGE', supply: '148.92B DOGE'},
+                {rank: 9, name: 'TRON', symbol: 'TRX', price: '$0.2428', change24h: 0.49, change7d: 1.68, marketCap: '$23,054,050,447', volume: '$347,179,160\n1.42B TRX', supply: '94.94B TRX'},
+                {rank: 10, name: 'Cardano', symbol: 'ADA', price: '$0.6310', change24h: 0.41, change7d: 1.86, marketCap: '$22,268,645,643', volume: '$328,224,090\n520.15M ADA', supply: '35.29B ADA'},
+            ];
+            data.forEach(coin => {
+                const change24hClass = coin.change24h >= 0 ? 'positive-change' : 'negative-change';
+                const change24hArrow = coin.change24h >= 0 ? '▲' : '▼';
+                const change7dClass = coin.change7d >= 0 ? 'positive-change' : 'negative-change';
+                const change7dArrow = coin.change7d >= 0 ? '▲' : '▼';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="rank-column">⭐</td>
+                    <td class="name-column">
+                        <div class="coin-info">
+                            <div class="coin-name-wrapper">
+                                <span class="coin-name">${coin.name}</span>
+                                <span class="coin-symbol">${coin.symbol}</span>
+                            </div>
+                            <button class="buy-button">Buy</button>
+                        </div>
+                    </td>
+                    <td class="price-column">${coin.price}</td>
+                    <td class="change-column"><span class="${change24hClass}">${change24hArrow} ${Math.abs(coin.change24h)}%</span></td>
+                    <td class="change-column"><span class="${change7dClass}">${change7dArrow} ${Math.abs(coin.change7d)}%</span></td>
+                    <td class="market-cap-column">${coin.marketCap}</td>
+                    <td class="volume-column">${coin.volume.replace(/\n/g, '<br>')}</td>
+                    <td class="supply-column">${coin.supply}</td>
+                    <td class="price-alert-column">
+                        <div class="price-alert-band">
+                            <div class="price-range-bar" style="left: 20%; width: 60%;"></div>
+                            <div class="current-price-marker" style="left: 45%;"></div>
+                        </div>
+                        <div class="alert-buttons">
+                            <button class="alert-btn high">Alert High</button>
+                            <button class="alert-btn low">Alert Low</button>
+                        </div>
+                    </td>
+                    <td class="sparkline-column"></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        },
+
+        setupEventListeners() {
+            // Handle star icons
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('star-icon')) {
+                    e.target.classList.toggle('starred');
+                }
+            });
+
+            // Table sorting
+            const tableHeaders = document.querySelectorAll('.crypto-table th');
+            tableHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const isAsc = header.classList.contains('asc');
+                    tableHeaders.forEach(h => h.classList.remove('asc', 'desc'));
+                    header.classList.add(isAsc ? 'desc' : 'asc');
+                });
+            });
+
+            // Pagination
+            const paginationButtons = document.querySelectorAll('.pagination-button');
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.disabled) return;
+                    paginationButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+
+            // Theme toggle
+            const themeButton = document.querySelector('.settings-dropdown .header-btn');
+            if (themeButton) {
+                themeButton.addEventListener('click', () => {
+                    document.body.classList.toggle('dark-theme');
+                });
+            }
+        },
+
+        init() {
+            this.renderCryptoTable();
+            this.setupEventListeners();
+
+            // Initialize with system theme preference
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-theme');
+            }
+        }
+    };
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        ui.init();
+    });
+  </script>
+ </body>
+</html>
